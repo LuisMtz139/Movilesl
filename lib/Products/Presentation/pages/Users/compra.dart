@@ -120,6 +120,7 @@ class Compra extends StatelessWidget {
                                       image: DecorationImage(
                                         image: AssetImage(
                                           'assets/usuarios-compradores/images/plus-lg-1.png',
+
                                         ),
                                       ),
                                     ),
@@ -130,6 +131,7 @@ class Compra extends StatelessWidget {
                                 width: 26 * fem,
                                 height: 23 * fem,
                                 child: Image.asset(
+
                                   'assets/usuarios-compradores/images/auto-group-rnxq.png',
                                   width: 26 * fem,
                                   height: 23 * fem,

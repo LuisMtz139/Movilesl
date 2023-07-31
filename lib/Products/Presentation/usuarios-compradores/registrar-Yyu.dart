@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -12,10 +11,12 @@ void main() {
 
 class RestaurantRegistrationView extends StatefulWidget {
   @override
-  _RestaurantRegistrationViewState createState() => _RestaurantRegistrationViewState();
+  _RestaurantRegistrationViewState createState() =>
+      _RestaurantRegistrationViewState();
 }
 
-class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView> {
+class _RestaurantRegistrationViewState
+    extends State<RestaurantRegistrationView> {
   final _formKey = GlobalKey<FormState>();
   final _imagePicker = ImagePicker();
   TextEditingController _nameController = TextEditingController();
@@ -28,7 +29,8 @@ class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView>
 
   void _registerRestaurant() async {
     if (_formKey.currentState!.validate()) {
-      final url = 'https://mobil-back-upbu-production.up.railway.app/register/restaurant';
+      final url =
+          'https://mobil-back-upbu-production.up.railway.app/register/restaurant';
       final name = _nameController.text;
       final email = _emailController.text;
       final password = _passwordController.text;
@@ -45,16 +47,21 @@ class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView>
       List<int> imageBytes = await _selectedImage!.readAsBytes();
       String imageName = _selectedImage!.path.split('/').last;
 
-      final response = await http.post(Uri.parse(url), body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'name_restaurant': nameRestaurant,
-        'description': description,
-        'direccion': direccion,
-        'image': http.MultipartFile.fromBytes('image', imageBytes, filename: imageName),
-      });
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['name'] = name;
+      request.fields['email'] = email;
+      request.fields['password'] = password;
+      request.fields['name_restaurant'] = nameRestaurant;
+      request.fields['description'] = description;
+      request.fields['direccion'] = direccion;
+      request.files.add(http.MultipartFile(
+        'image',
+        http.ByteStream.fromBytes(imageBytes),
+        imageBytes.length,
+        filename: imageName,
+      ));
 
+      var response = await request.send();
       if (response.statusCode == 200) {
         // Successful registration, handle the response here
         print('Restaurant registered successfully');
