@@ -106,35 +106,24 @@ class Compra extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0 * fem, 2 * fem, 35 * fem, 0 * fem),
-                                height: double.infinity,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 17 * fem, 0 * fem),
-                                      child: Text(
-                                        'Cantidad: 2',
-                                        style: SafeGoogleFont(
-                                          'Inter',
-                                          fontSize: 12 * ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2125 * ffem / fem,
-                                          color: Color(0xff000000),
+                              GestureDetector(
+                                onTap: () {
+                                  // Aquí puedes agregar la lógica que desees al hacer clic en el botón
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(0 * fem, 2 * fem, 35 * fem, 0 * fem),
+                                  height: 21 * fem,
+                                  child: Container(
+                                    width: 21 * fem,
+                                    height: 21 * fem,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'assets/usuarios-compradores/images/plus-lg-1.png',
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      width: 21 * fem,
-                                      height: 21 * fem,
-                                      child: Image.asset(
-                                        'assets/usuarios-compradores/images/plus-lg-1.png',
-                                        width: 21 * fem,
-                                        height: 21 * fem,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -259,3 +248,4 @@ class Compra extends StatelessWidget {
     );
   }
 }
+

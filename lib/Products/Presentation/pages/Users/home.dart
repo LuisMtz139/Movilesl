@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 import '../Users/products-cuadro.dart';
-import '../../services/serviceInicio.dart';
+import '../../services/User/serviceInicio.dart';
 import 'dart:convert';
-import '../../services/listar.dart'; // Importar el archivo listar.dart
+import '../../services/User/listar.dart'; // Importar el archivo listar.dart
 
 class OtherScene extends StatefulWidget {
   @override

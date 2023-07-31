@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:myapp/utils.dart';
-import '/Products/Presentation/services/serviceInicio.dart';
+import '../../services/User/serviceInicio.dart';
 import '/Products/Presentation/pages/Users/compra.dart';
-import '../../services/product-service.dart';
+import '../../services/User/product-service.dart';
 
 class Scene extends StatefulWidget {
   final int? selectedRestaurantId;

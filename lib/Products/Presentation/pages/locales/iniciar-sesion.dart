@@ -3,12 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import '../Users/home.dart';
 import './registrar.dart';
-import '../../services/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
-import '../../usuarios-compradores/products-list.dart';
+import '../../services/User/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
+import '../../usuarios-compradores/IniciarSesion.dart';
 
 void main() {
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scene(),
       routes: {
-        '/otherScene': (context) => OtherScene(),
-        '/registrar': (context) => RegistrarScene(), // Agrega la ruta para la vista de registro
-        '/restaurant': (context) => RestaurantScene(), // Agrega la ruta para la vista de restaurante
+        '/otherScene': (context) => OtherScene(),//home
+        '/registrar': (context) => RegistrarScene(), // Agrega la ruta para la vista de registro locales
+        '/restaurant': (context) => InicioTienda(), // Agrega la ruta para la vista de restaurante
       },
     );
   }
@@ -128,6 +129,7 @@ class _SceneState extends State<Scene> {
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                   ),
+
                   child: Container(
                     width: 254 * fem,
                     height: 35 * fem,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import '../pages/Users/home.dart';
-import '../pages/locales/registrar.dart';
-import '../services/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
+import '../Products/Presentation/pages/Users/home.dart';
+import '../Products/Presentation/pages/locales/registrar.dart';
+import '../Products/Presentation/services/User/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
 
 
 class RestaurantScene extends StatelessWidget {
