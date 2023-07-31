@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import '../Users/home.dart';
-import './registrar.dart';
-import '../../services/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
+import '../pages/Users/home.dart';
+import '../pages/locales/registrar.dart';
+import '../services/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+class RestaurantScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -90,7 +87,7 @@ class _SceneState extends State<Scene> {
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: 'Email@example.com',
+                        hintText: 'email@example.com',
                         hintStyle: GoogleFonts.inter(
                           fontSize: 10 * ffem,
                           fontWeight: FontWeight.w400,

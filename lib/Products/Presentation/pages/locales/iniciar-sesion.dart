@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../Users/home.dart';
 import './registrar.dart';
 import '../../services/serviceInicio.dart'; // Importa el archivo serviceInicio.dart
+import '../../usuarios-compradores/products-list.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/otherScene': (context) => OtherScene(),
         '/registrar': (context) => RegistrarScene(), // Agrega la ruta para la vista de registro
+        '/restaurant': (context) => RestaurantScene(), // Agrega la ruta para la vista de restaurante
       },
     );
   }
@@ -61,6 +63,10 @@ class _SceneState extends State<Scene> {
     Navigator.pushNamed(context, '/registrar');
     // Si tienes una ruta para la vista de registro, puedes utilizarla así:
     // Navigator.pushNamed(context, '/registro');
+  }
+
+  void _navigateToRestaurant(BuildContext context) {
+    Navigator.pushNamed(context, '/restaurant');
   }
 
   @override
@@ -175,6 +181,37 @@ class _SceneState extends State<Scene> {
                 ),
               ),
               Positioned(
+                left: 32 * fem,
+                top: 545 * fem,
+                child: TextButton(
+                  onPressed: () {
+                    _navigateToRestaurant(context);
+                  },
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Container(
+                    width: 254 * fem,
+                    height: 35 * fem,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xff3550e2)),
+                      borderRadius: BorderRadius.circular(10 * fem),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'RESTAURANT',
+                        style: GoogleFonts.inter(
+                          fontSize: 16 * ffem,
+                          fontWeight: FontWeight.w700,
+                          height: 1.2125 * ffem / fem,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 left: 64 * fem,
                 top: 216 * fem,
                 child: Align(
@@ -261,7 +298,6 @@ class _SceneState extends State<Scene> {
                   ),
                 ),
               ),
-
               Positioned(
                 left: 63 * fem,
                 top: 279 * fem,
