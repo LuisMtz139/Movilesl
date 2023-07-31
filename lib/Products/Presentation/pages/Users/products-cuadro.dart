@@ -17,10 +17,9 @@ class Scene extends StatefulWidget {
 
 class _SceneState extends State<Scene> {
   List<dynamic> products = [];
-  int buttonPressCount = 0; // Variable para contar la cantidad de veces que se presiona el botón
+  Map<int, int> buttonPressCount = {}; // Cambiado a Mapa para contabilizar de forma individual
 
   @override
-
   void initState() {
     super.initState();
     fetchProducts();
@@ -36,20 +35,22 @@ class _SceneState extends State<Scene> {
 
   void loadButtonPressCount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? storedCount = prefs.getInt('buttonPressCount');
-    setState(() {
-      buttonPressCount = storedCount ?? 0;
-    });
+    for (var product in products) {
+      int? storedCount = prefs.getInt('buttonPressCount_${product['id']}');
+      setState(() {
+        buttonPressCount[product['id']] = storedCount ?? 0;
+      });
+    }
   }
 
-  void incrementButtonPressCount() async {
+  void incrementButtonPressCount(int productId) async {
     setState(() {
-      buttonPressCount++; // Incrementar el contador
-      print('Botón presionado $buttonPressCount '); // Mostrar la cantidad actual en la consola
+      buttonPressCount[productId] = (buttonPressCount[productId] ?? 0) + 1;
+      print('Botón presionado ${buttonPressCount[productId]} veces para el producto $productId');
     });
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('buttonPressCount', buttonPressCount);
+    prefs.setInt('buttonPressCount_$productId', buttonPressCount[productId]!);
   }
 
   @override
@@ -66,6 +67,7 @@ class _SceneState extends State<Scene> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+
           'Detalles del Restaurante',
           style: TextStyle(color: Colors.white),
         ),
@@ -125,7 +127,7 @@ class _SceneState extends State<Scene> {
                             margin: EdgeInsets.fromLTRB(0 * fem, 1 * fem, 12 * fem, 0 * fem),
                             child: TextButton(
                               onPressed: () {
-                                incrementButtonPressCount(); // Esta línea llama a la función para contar el botón presionado
+                                incrementButtonPressCount(product['id']); // Paso el id del producto
                               },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
@@ -268,3 +270,4 @@ class _SceneState extends State<Scene> {
     );
   }
 }
+
