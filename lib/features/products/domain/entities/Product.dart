@@ -1,17 +1,18 @@
-class Product{
-  final int id;
-  final String name;
-  final String description;
-  final String price;
-  final String urlImage;
-  final String restaurantId;
 
-  Product( {
-    required this.name,
-    required this.id,
-    required this.description,
-    required this.price,
-    required this.urlImage,
-    required this.restaurantId,
-  });
+
+class Product {
+  final int id;
+  final String description;
+  final int price;
+  final int idRestaurant;
+  final String urlImage;
+ 
+
+  Product(
+      this.id,
+      this.description,
+      this.price,
+      this.idRestaurant,
+      this.urlImage, // Agrega este parámetro al constructor
+      );
 }

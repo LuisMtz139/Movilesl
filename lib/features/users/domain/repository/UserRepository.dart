@@ -1,11 +1,9 @@
 
 
-import 'package:myapp/features/users/domain/entities/User.dart';
+
+import '../entities/User.dart';
 
 abstract class UserRepository {
-  Future<String> postRegisterUser(User);
-  Future<String> postLogInUser(String email,String password);
-  Future<String> postMakeOrder();
-  Future<List<User>> getAllOrdersByUser();
-
+  Future<void> postRegisterUser(User user);
+  Future<void> postLogInUser(String email,String password);
 }

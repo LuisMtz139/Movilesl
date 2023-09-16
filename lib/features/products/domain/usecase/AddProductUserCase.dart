@@ -7,7 +7,7 @@ class AddProductUserCase {
 
   AddProductUserCase(this.productoRepository);
 
-  Future<String> execute() async {
+  Future<void> execute() async {
     return await productoRepository.postAddProduct(Product);
   }
 }

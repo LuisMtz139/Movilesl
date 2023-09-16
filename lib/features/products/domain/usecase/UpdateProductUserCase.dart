@@ -1,4 +1,4 @@
-import '../../../../Products/Presentation/usuarios-compradores/listaProducts.dart';
+import 'package:myapp/features/products/domain/entities/Product.dart';
 import '../repository/ProductoRepository.dart';
 
 class UpdateProductUserCase {
@@ -6,7 +6,7 @@ class UpdateProductUserCase {
 
   UpdateProductUserCase(this.productoRepository);
 
-  Future<String> execute() async {
+  Future<void> execute() async {
     return await productoRepository.putUpdateProduct(Product as String);
   }
 }

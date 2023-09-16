@@ -4,13 +4,13 @@ import 'package:myapp/features/products/domain/entities/Product.dart';
 import 'package:myapp/features/products/domain/repository/ProductoRepository.dart';
 
 class DeleteProductUsecase {
-  final ProductoRepository postRepository;
+  final ProductoRepository productRepository;
 
-  DeleteProductUsecase(this.postRepository);
+  DeleteProductUsecase(this.productRepository);
 
   Future<void> execute(String productId) async {
     try {
-      await postRepository.deleteProduct(productId);
+      await productRepository.deleteProduct(productId);
     } catch (e) {
       throw e;
     }
