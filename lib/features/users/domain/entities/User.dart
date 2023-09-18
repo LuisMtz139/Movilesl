@@ -1,19 +1,15 @@
-
-
-class User{
-
-
-  final int id;
+class User {
   final String email;
   final String password;
+  final String confirmPassword;
   final String name;
   final String phoneNumber;
 
-  User(
-    this.id,
-    this.email,
-    this.password,
-    this.name,
-    this.phoneNumber,
-  );  
+  User({
+    required this.email,
+    required this.password,
+    required this.confirmPassword,
+    required this.name,
+    required this.phoneNumber,
+  });
 }

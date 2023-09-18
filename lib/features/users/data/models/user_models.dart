@@ -1,43 +1,57 @@
 import '../../domain/entities/User.dart';
 
-class UserModel extends User{
-    UserModel({
-        required int id,
-        required String email,
-        required String password,
-        required String name,
-        required String phoneNumber, 
-   }) : super(id,email, password,name,phoneNumber);
+class UserModel extends User {
+  UserModel({
+    required String email,
+    required String password,
+    required String confirmPassword,
+    required String name,
+    required String phoneNumber,
+  }) : super(
+    email: email,
+    password: password,
+    confirmPassword: confirmPassword,
+    name: name,
+    phoneNumber: phoneNumber,
+  );
 
-   factory UserModel.fromJson(Map<String, dynamic> json){
-       return UserModel(
-           id: json['id'],
-           email: json['email'],
-           password: json['password'],
-           name: json['name'],
-           phoneNumber: json['phoneNumber']
-       );
-   }
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      email: json['email'],
+      password: json['password'],
+      confirmPassword: json['confirmPassword'],
+      name: json['name'],
+      phoneNumber: json['phoneNumber'],
+    );
+  }
 
+  factory UserModel.fromEntity(User user) {
+    return UserModel(
+      email: user.email,
+      password: user.password,
+      confirmPassword: user.confirmPassword,
+      name: user.name,
+      phoneNumber: user.phoneNumber,
+    );
+  }
 
-    factory UserModel.fromEntity(User user){
-        return UserModel(
-            id: user.id,
-            email: user.email,
-            password:user.password,
-            name: user.name,
-            phoneNumber : user.phoneNumber,
-        );
-    }
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'password': password,
+      'confirmPassword': confirmPassword,
+      'name': name,
+      'phoneNumber': phoneNumber,
+    };
+  }
 
-    Map<String, dynamic> toJson() {
-        return {
-            'id': id,
-            'email': email,
-            'password':password,
-            'name': name,
-            'phoneNumber':phoneNumber,
-        };
-    }
-    //aqui falta un metodo
-} 
+  User toEntity() {
+    return User(
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      name: name,
+      phoneNumber: phoneNumber,
+    );
+  }
+}

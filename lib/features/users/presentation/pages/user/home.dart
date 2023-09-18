@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/features/users/presentation/pages/user/serviceInicio.dart';
 import 'package:myapp/utils.dart';
 //import 'C:\/Users/pssbo/Downloads/VISTAS/Movilesl/lib/Products/Presentation/pages/Users/products-cuadro.dart';
 //import 'C:\/Users/pssbo/Downloads/VISTAS/Movilesl/lib/Products/Presentation/services/User/serviceInicio.dart';
@@ -15,16 +14,7 @@ class OtherScene extends StatefulWidget {
 class _OtherSceneState extends State<OtherScene> {
   List<dynamic> restaurantes = [];
 
-  @override
-  void initState() {
-    super.initState();
-    // Obtener los datos al cargar la escena
-    fetchData(ServiceInicio.getToken()).then((restaurantes) {
-      setState(() {
-        this.restaurantes = restaurantes;
-      });
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {

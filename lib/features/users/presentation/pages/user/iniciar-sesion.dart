@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:myapp/features/users/presentation/pages/user/serviceInicio.dart';
 import '../../../../products/presentation/pages/IniciarSesion.dart';
-import '../restaurant/registrar.dart';
+import '../../../data/datasource/user_data_sorce.dart';
+import 'registrar.dart';
 import 'home.dart';
 
 
@@ -19,8 +19,8 @@ class Inicio extends StatelessWidget {
       home: Scene(),
       routes: {
         '/otherScene': (context) => OtherScene(),//home user
-        '/registrar': (context) => RegistrarScene(), // Agrega la ruta para la vista de registro locales
-        '/restaurant': (context) => InicioTienda(), // Agrega la ruta para la vista de restaurante
+        '/registrar': (context) => RegistrarScene(), // registrar
+        '/restaurant': (context) => InicioTienda(), // product/iniciar sesion
       },
     );
   }
@@ -39,11 +39,11 @@ class _SceneState extends State<Scene> {
   void _login(BuildContext context) async {
     final String email = emailController.text;
     final String password = passwordController.text;
+    print("buenas tardesssss");
+    try {
+      // Llama al método logIn de UserApiDataSourceImp para realizar el inicio de sesión.
+      await UserApiDataSourceImp().logIn(email, password);
 
-    // Llama al método login de ServiceInicio para realizar el inicio de sesión.
-    bool isLoggedIn = await ServiceInicio.login(email, password);
-
-    if (isLoggedIn) {
       // Redirige a OtherScene si el inicio de sesión fue exitoso.
       Navigator.push(
         context,
@@ -51,13 +51,14 @@ class _SceneState extends State<Scene> {
           builder: (context) => OtherScene(),
         ),
       );
-    } else {
+    } catch (e) {
       // Muestra el mensaje de error en caso de credenciales incorrectas.
       setState(() {
         errorMessage = 'Credenciales incorrectas, por favor intenta de nuevo.';
       });
     }
   }
+
 
   void _register(BuildContext context) {
     // Redirige a la vista de registro.

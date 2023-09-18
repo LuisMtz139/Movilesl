@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import '../../restaurant/registrar.dart';
+import '../registrar.dart';
 import '../home.dart';
 import '../serviceInicio.dart';
  // Importa el archivo serviceInicio.dart
