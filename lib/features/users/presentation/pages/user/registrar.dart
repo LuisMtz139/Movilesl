@@ -87,130 +87,31 @@ class _SceneState extends State<Scene> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  TextFormField(
-                    controller: emailController,
-                    style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      hintText: 'Email@example.com',
-                      hintStyle: const TextStyle(color: Colors.white54),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 1.5),
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                    ),
-                  ),
-
+                  CustomTextField(controller: emailController, hintText: 'Email@example.com'),
 
                   SizedBox(height: 20 * ffem),
 
-
-                  TextFormField(
-                    controller: nameController,
-                    style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      hintText: 'Nombre',
-                      hintStyle: const TextStyle( color: Colors.white54),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 1.5),
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                    ),
-                  ),
-
-
+                  CustomTextField(controller: nameController, hintText: 'Nombre'),
+                 
                   SizedBox(height: 20 * ffem),
 
-
-                  TextFormField(
-                    controller: phoneNumberController,
-                    keyboardType: TextInputType.phone,
-                    style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      hintText: 'Número de celular',
-                      hintStyle: const TextStyle(color: Colors.white54),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 1.5),
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                    ),
-                  ),
-
-
+                  CustomTextField(controller: phoneNumberController, hintText: 'Número de celular'),
+                 
                   SizedBox(height: 30 * ffem),
 
-
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      hintText: 'Contraseña',
-                      hintStyle: const TextStyle(color: Colors.white54),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 1.5),
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                    ),
-                  ),
-
+                  CustomTextField(controller: passwordController, hintText: 'Contraseña'),
                   
                   SizedBox(height: 20 * ffem),
-                  TextFormField(
-                    controller: confirmPasswordController,
-                    obscureText: true,
-                    style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      hintText: 'Confirmar Contraseña',
-                      hintStyle: const TextStyle(color: Colors.white54),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 1.5),
-                        borderRadius: BorderRadius.circular(10 * ffem),
-                      ),
-                    ),
-                  ),
+
+                  CustomTextField(controller: confirmPasswordController, hintText: 'Confirmar Contraseña'),
+
                   SizedBox(height: 20 * ffem),
                   ElevatedButton(
                     onPressed: () {
                       _confirm(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:Color(0xff2e2e2e),
+                      backgroundColor:const Color(0xff2e2e2e),
                       padding: EdgeInsets.symmetric(vertical: 15 * ffem),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10 * ffem),
@@ -240,3 +141,38 @@ class _SceneState extends State<Scene> {
   }
 }
 
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final double ffem;
+
+  const CustomTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.ffem = 1.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: TextStyle(fontSize: 16 * ffem, color: Colors.white),
+      cursorColor: Colors.white,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.white54),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.2),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10 * ffem),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white, width: 1.5),
+          borderRadius: BorderRadius.circular(10 * ffem),
+        ),
+      ),
+    );
+  }
+}

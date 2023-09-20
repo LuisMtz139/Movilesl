@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myapp/features/users/data/models/user_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart' as http;
 
 
 import '../../domain/entities/User.dart';
+import '../../presentation/pages/user/home.dart';
 import '../../presentation/pages/user/iniciar-sesion.dart';
+import '../../presentation/pages/user/registrar.dart';
+import '../models/user_models.dart';
 
 abstract class UserApiDataSource {//cooregir el= nombre dependiendo el tipo de consumo
   // https://jsonplaceholder.typicode.com/posts
@@ -16,6 +17,7 @@ abstract class UserApiDataSource {//cooregir el= nombre dependiendo el tipo de c
     Future<void> createUser(User user);
     Future<void> logIn(String email, String password);
 }
+
 class UserApiDataSourceImp implements UserApiDataSource {
   BuildContext? context;
 
@@ -46,76 +48,48 @@ class UserApiDataSourceImp implements UserApiDataSource {
     }
 
     try {
-      // Construye el mapa de datos
-      var data = {
-        'email': email,
-        'password': password,
-        'name': name,
-        'phone_number': phoneNumber,
-        'confirm': confirmPassword,
-      };
 
       // Realiza la solicitud POST
       var response = await http.post(
-        Uri.parse('https://mobil-back-upbu-production.up.railway.app/register/user'),
-        body: data,
+        Uri.parse('https://mobil-back-upbu-production-160d.up.railway.app/register/user'),
+        body: UserModel.fromEntity(user).toJson(),
       );
 
       // Muestra el status de la solicitud
       print('Status: ${response.statusCode}');
 
+      // Imprime la respuesta del servidor
+      print(response.body);
+
       // Procesa la respuesta
       if (response.statusCode == 200) {
-        // Navega a la pantalla de inicio
-        Navigator.push(
-          context!,
-          MaterialPageRoute(
-            builder: (context) => Inicio(),
-          ),
-        );
-      } else {
-        // Muestra un mensaje de error en caso de un código de estado diferente a 200
-        switch (response.statusCode) {
-          case 400:
-            errorMessage = 'Los datos proporcionados son inválidos.';
-            break;
-          case 401:
-            errorMessage = 'El usuario no está autorizado.';
-            break;
-          case 403:
-            errorMessage = 'El usuario no tiene permiso para crear usuarios.';
-            break;
-          default:
-            errorMessage = 'Error desconocido.';
-            break;
-        }
+        print('La respuesta tiene un código de estado 200.');
 
-        Fluttertoast.showToast(
-          msg: errorMessage,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-        );
+        // Redirecciona a otra página
+        if (context == null) {
+          print('PRUEBA 1234');
+          Navigator.push(
+            context!,
+            MaterialPageRoute(
+              builder: (context) => OtherScene(),
+            ),
+          );
+        }
       }
     } catch (e) {
       print(e);
-      // Muestra un mensaje de error genérico en caso de excepción
-      Fluttertoast.showToast(
-        msg: 'No se pudo enviar los datos. Inténtalo de nuevo más tarde.',
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-      );
+      //trhow exception
     }
   }
 
 
   @override
-  Future<void> logIn(String email, String password) async {
+  Future<String> logIn(String email, String password) async {
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     print('aaaaaaaa');
-
     try {
       var response = await http.post(
-        Uri.parse('https://mobil-back-upbu-production.up.railway.app/login/user'),
+        Uri.parse('https://mobil-back-upbu-production-160d.up.railway.app//login/user'),
         headers: headers,
         body: {
           'email': email,
@@ -124,8 +98,14 @@ class UserApiDataSourceImp implements UserApiDataSource {
       );
 
       if (response.statusCode == 200) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', response.body);
         print('Inicio de sesión exitoso');
         print('Response: ${response.body}');
+        // Guarda el token en una variable y retorna el token
+        String token = response.body;
+        print('dfdfdf'+token);
+        return token;
       } else {
         print('Fallido inicio. Código de estado: ${response.statusCode}');
         print('Mensaje: ${response.body}');
@@ -136,6 +116,7 @@ class UserApiDataSourceImp implements UserApiDataSource {
       throw Exception('Error durante el inicio de sesión: $error');
     }
   }
+
 
 
 

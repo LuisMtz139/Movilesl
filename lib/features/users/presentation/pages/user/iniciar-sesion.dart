@@ -84,7 +84,7 @@ class _SceneState extends State<Scene> {
         child: Container(
           width: double.infinity,
           height: 668 * fem,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xff2e2e2e),
           ),
           child: Stack(
@@ -105,8 +105,8 @@ class _SceneState extends State<Scene> {
                           fontWeight: FontWeight.w400,
                           height: 1.2125 * ffem / fem,
                           decoration: TextDecoration.underline,
-                          color: Color(0x8effffff),
-                          decorationColor: Color(0x8effffff),
+                          color: const Color(0x8effffff),
+                          decorationColor: const Color(0x8effffff),
                         ),
                       ),
                       style: GoogleFonts.inter(
@@ -114,8 +114,8 @@ class _SceneState extends State<Scene> {
                         fontWeight: FontWeight.w400,
                         height: 1.2125 * ffem / fem,
                         decoration: TextDecoration.underline,
-                        color: Color(0x8effffff),
-                        decorationColor: Color(0x8effffff),
+                        color: const Color(0x8effffff),
+                        decorationColor: const Color(0x8effffff),
                       ),
                     ),
                   ),

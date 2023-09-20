@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:myapp/utils.dart';
-import '../../product-service.dart';
 import 'compra.dart';
 
 
-class Scene extends StatefulWidget {
+class ProductsByID extends StatefulWidget {
   final int? selectedRestaurantId;
 
-  Scene({required this.selectedRestaurantId});
+  ProductsByID({required this.selectedRestaurantId});
 
   @override
   _SceneState createState() => _SceneState();
 }
 
-class _SceneState extends State<Scene> {
+class _SceneState extends State<ProductsByID> {
+
   List<dynamic> products = [];
   Map<int, int> buttonPressCount = {}; // Cambiado a Mapa para contabilizar de forma individual
 
   @override
   void initState() {
+    print('entreeeeeeeeeeeeeee');
     super.initState();
     fetchProducts();
     loadButtonPressCount();
   }
 
   void fetchProducts() async {
-    List<dynamic> productList = await ProductService.fetchProducts(widget.selectedRestaurantId ?? 0);
+    print('q');
     setState(() {
-      products = productList;
+
     });
   }
 

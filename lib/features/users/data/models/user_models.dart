@@ -39,9 +39,9 @@ class UserModel extends User {
     return {
       'email': email,
       'password': password,
-      'confirmPassword': confirmPassword,
+      'confirm': confirmPassword,
       'name': name,
-      'phoneNumber': phoneNumber,
+      'phone_number': phoneNumber,
     };
   }
 

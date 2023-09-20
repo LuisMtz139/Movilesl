@@ -8,7 +8,6 @@ import '../../domain/entities/Product.dart';
 import '../models/ProductModel.dart';
 
 
-
 abstract class ProductApiDatasource {
   Future<List<ProductModel>> getAllProductsByRestaurant();
   Future<void> postAddProduct(Product product);
@@ -30,7 +29,7 @@ class ProductApiDatasourceImp implements ProductApiDatasource {
   }
 
   @override
-  Future<List<ProductModel>> getAllProductsByRestaurant() {
+  Future<List<ProductModel>> getAllProductsByRestaurant() async {
     // TODO: implement getAllProductsByRestaurant
     throw UnimplementedError();
   }
@@ -46,7 +45,6 @@ class ProductApiDatasourceImp implements ProductApiDatasource {
       product.add(UserModel.fromEntity(product as User));
       sharedPreferences.setString('product', jsonEncode(product));
     }
-
 
 
   @override

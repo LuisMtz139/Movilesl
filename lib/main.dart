@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/features/users/presentation/blocs/user/registrar_bloc.dart';
+import 'package:myapp/usecase_config.dart';
 import 'package:myapp/utils.dart';
 // import 'package:myapp/usuarios-compradores/iniciar-sesion.dart';
 // import 'package:myapp/usuarios-compradores/IniciarSesion.dart';
@@ -20,22 +23,33 @@ import 'package:myapp/utils.dart';
 // import 'package:myapp/usuarios-tienda/home-mGj.dart';
 
 void main() => runApp(MyApp());
+UsecaseConfig usecaseConfig = UsecaseConfig();
 
 class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
-	return MaterialApp(
-		title: 'Flutter',
-		debugShowCheckedModeBanner: false,
-		scrollBehavior: MyCustomScrollBehavior(),
-		theme: ThemeData(
-		primarySwatch: Colors.blue,
-		),
-		home: Scaffold(
-		body: SingleChildScrollView(
+	return MultiBlocProvider(
+		providers: [
+			BlocProvider<RegistrarBloc>(
+				create: (BuildContext context) => RegistrarBloc(
+					registerUserUseCase: usecaseConfig.registerUserUseCase!,
+				),
+			),
+		],
 
-		),
-		),
+	  child: MaterialApp(
+	  	title: 'Flutter',
+	  	debugShowCheckedModeBanner: false,
+	  	scrollBehavior: MyCustomScrollBehavior(),
+	  	theme: ThemeData(
+	  	primarySwatch: Colors.blue,
+	  	),
+	  	home: Scaffold(
+	  	body: SingleChildScrollView(
+
+	  	),
+	  	),
+	  ),
 	);
 	}
 }

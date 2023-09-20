@@ -1,10 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/utils.dart';
-//import 'C:\/Users/pssbo/Downloads/VISTAS/Movilesl/lib/Products/Presentation/pages/Users/products-cuadro.dart';
-//import 'C:\/Users/pssbo/Downloads/VISTAS/Movilesl/lib/Products/Presentation/services/User/serviceInicio.dart';
+import 'package:myapp/features/users/presentation/pages/user/user2/otro/products-cuadro.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'listar.dart'; // Importar el archivo listar.dart
+import 'package:http/http.dart' as http;
 
 class OtherScene extends StatefulWidget {
   @override
@@ -14,7 +15,56 @@ class OtherScene extends StatefulWidget {
 class _OtherSceneState extends State<OtherScene> {
   List<dynamic> restaurantes = [];
 
+  String token = '';
 
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataFromUrl();
+    // Get the token from shared preferences
+
+  }
+
+
+  Future<void> _fetchDataFromUrl() async {
+    try {
+      print('Entré al listado');
+      final prefs = await SharedPreferences.getInstance();
+      String? tokenJson = prefs.getString('token');
+      if (tokenJson != null) {
+        Map<String, dynamic> tokenMap = json.decode(tokenJson);
+        String token = tokenMap['encode_token'];
+        print('Tokensss: $token');
+        var headers = {
+          'Authorization': 'Bearer $token',
+        };
+        var request = http.Request(
+          'GET',
+          Uri.parse('https://mobil-back-upbu-production-160d.up.railway.app/api/restaurants/list'),
+        );
+        request.headers.addAll(headers);
+        http.StreamedResponse response = await request.send();
+        if (response.statusCode == 200) {
+          String responseBody = await response.stream.bytesToString();
+          setState(() {
+            restaurantes = json.decode(responseBody);
+          });
+        } else {
+          print('Error al obtener datos: ${response.reasonPhrase}');
+        }
+      } else {
+        print('Token not found in SharedPreferences.');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+
+
+  double calculateFontSize(double fem, double ffem, double size) {
+    return size * ffem;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +73,13 @@ class _OtherSceneState extends State<OtherScene> {
     double ffem = fem * 0.97;
 
     return Container(
+
       width: double.infinity,
       child: Container(
         padding: EdgeInsets.fromLTRB(11 * fem, 9 * fem, 9 * fem, 0 * fem),
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: Color(0xff2e2e2e),
+        decoration: const BoxDecoration(
+          color:  Color(0xff2e2e2e),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -39,7 +90,7 @@ class _OtherSceneState extends State<OtherScene> {
                 width: 299 * fem,
                 height: 127 * fem,
                 decoration: BoxDecoration(
-                  color: Color(0xffe19234),
+                  color: const Color(0xffe19234),
                   borderRadius: BorderRadius.circular(5 * fem),
                 ),
                 child: Stack(
@@ -54,7 +105,7 @@ class _OtherSceneState extends State<OtherScene> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6 * fem),
-                              color: Color(0x1c797979),
+                              color: const Color(0x1c797979),
                             ),
                           ),
                         ),
@@ -68,12 +119,13 @@ class _OtherSceneState extends State<OtherScene> {
                           width: 141 * fem,
                           height: 14 * fem,
                           child: Text(
+
                             'Mario Alfredo Mendez Diaz',
                             style: GoogleFonts.inter(
                               fontSize: 11 * ffem,
                               fontWeight: FontWeight.w400,
                               height: 1.2125 * ffem / fem,
-                              color: Color(0xff000000),
+                              color: const Color(0xff000000),
                             ),
                           ),
                         ),
@@ -92,7 +144,7 @@ class _OtherSceneState extends State<OtherScene> {
                               fontSize: 11 * ffem,
                               fontWeight: FontWeight.w400,
                               height: 1.2125 * ffem / fem,
-                              color: Color(0xff000000),
+                              color: const Color(0xff000000),
                             ),
                           ),
                         ),
@@ -124,7 +176,7 @@ class _OtherSceneState extends State<OtherScene> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5 * fem),
-                              color: Color(0xffffffff),
+                              color: const Color(0xffffffff),
                             ),
                           ),
                         ),
@@ -159,19 +211,19 @@ class _OtherSceneState extends State<OtherScene> {
                     Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 1 * fem, 0 * fem),
+                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 1 * fem, 0 * fem),
                           child: TextButton(
                             onPressed: () {
-                              // Print the selected restaurant ID to the console
                               print('Selected restaurant ID: ${restaurante['id']}');
-
-                              // Save the selected restaurant ID to _selectedRestaurantId
                               int selectedId = restaurante['id'];
+                              print("entreeeeeeeeeeeeee");
+                              Navigator.push(
 
-                              // Navigate to the 'Scene' widget and pass the selected ID as argument
-
+                                context,
+                                MaterialPageRoute(builder: (context) => ProductsByID(selectedRestaurantId: selectedId)),
+                              );
                             },
+
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                             ),
@@ -189,38 +241,37 @@ class _OtherSceneState extends State<OtherScene> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Estabeclimiento: ${restaurante['name_restaurant']}',
-
+                                    'Establecimiento: ${restaurante['name_restaurant']}',
                                     style: GoogleFonts.inter(
-                                      fontSize: 13 * ffem,
+                                      fontSize: calculateFontSize(13, ffem, fem),
                                       fontWeight: FontWeight.w700,
-                                      color: Color(0xffffffff),
+                                      color: const Color(0xffffffff),
                                     ),
                                   ),
-                                  SizedBox(height: 8 * fem),
+                                  SizedBox(height: calculateFontSize(8, ffem, fem)),
                                   Text(
                                     restaurante['description'],
                                     style: GoogleFonts.inter(
-                                      fontSize: 14 * ffem,
-                                      color: Color(0xffffffff),
+                                      fontSize: calculateFontSize(14, ffem, fem),
+                                      color: const Color(0xffffffff),
                                     ),
                                   ),
-                                  SizedBox(height: 8 * fem),
+                                  SizedBox(height: calculateFontSize(8, ffem, fem)),
                                   Text(
                                     'Dirección: ${restaurante['direccion']}',
                                     style: GoogleFonts.inter(
-                                      fontSize: 14 * ffem,
-                                      color: Color(0xffffffff),
+                                      fontSize: calculateFontSize(14, ffem, fem),
+                                      color: const Color(0xffffffff),
                                     ),
                                   ),
-                                  SizedBox(height: 12 * fem),
+                                  SizedBox(height: calculateFontSize(12, ffem, fem)),
                                 ],
                               ),
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 21 * fem,
+                          height: calculateFontSize(21, ffem, fem),
                         ),
                       ],
                     ),
@@ -232,6 +283,7 @@ class _OtherSceneState extends State<OtherScene> {
       ),
     );
   }
+
 
   ImageProvider _getImageProvider(String imageUrl) {
     try {
