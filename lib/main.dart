@@ -1,56 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/features/users/presentation/blocs/user/registrar_bloc.dart';
-import 'package:myapp/usecase_config.dart';
-import 'package:myapp/utils.dart';
-// import 'package:myapp/usuarios-compradores/iniciar-sesion.dart';
-// import 'package:myapp/usuarios-compradores/IniciarSesion.dart';
-// import 'package:myapp/usuarios-compradores/products-cuadro.dart';
-// import 'package:myapp/usuarios-compradores/products-list.dart';
-// import 'package:myapp/usuarios-compradores/compra.dart';
-// import 'package:myapp/usuarios-compradores/recuperar-contrasea-p1.dart';
-// import 'package:myapp/usuarios-compradores/recuperar-contrasea-p1-Rjm.dart';
-// import 'package:myapp/usuarios-tienda/iniciar-sesion.dart';
-// import 'package:myapp/usuarios-tienda/IniciarSesion.dart';
-// import 'package:myapp/usuarios-tienda/registrar-Yyu.dart';
-// import 'package:myapp/usuarios-tienda/recuperar-contrasea-p1.dart';
-// import 'package:myapp/usuarios-tienda/recuperar-contrasea-p1-DCj.dart';
-// import 'package:myapp/usuarios-tienda/home.dart';
-// import 'package:myapp/usuarios-tienda/home-xYF.dart';
-// import 'package:myapp/usuarios-tienda/home-mGj.dart';
+import 'package:myapp/routes/router.dart';
 
-void main() => runApp(MyApp());
-UsecaseConfig usecaseConfig = UsecaseConfig();
 
-class MyApp extends StatelessWidget {
-	@override
-	Widget build(BuildContext context) {
-	return MultiBlocProvider(
-		providers: [
-			BlocProvider<RegistrarBloc>(
-				create: (BuildContext context) => RegistrarBloc(
-					registerUserUseCase: usecaseConfig.registerUserUseCase!,
-				),
-			),
-		],
-
-	  child: MaterialApp(
-	  	title: 'Flutter',
-	  	debugShowCheckedModeBanner: false,
-	  	scrollBehavior: MyCustomScrollBehavior(),
-	  	theme: ThemeData(
-	  	primarySwatch: Colors.blue,
-	  	),
-	  	home: Scaffold(
-	  	body: SingleChildScrollView(
-
-	  	),
-	  	),
-	  ),
-	);
-	}
+void main(){
+  runApp(const BlocsProviders());
 }
 
+
+
+
+class BlocsProviders extends StatelessWidget {
+  const BlocsProviders({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => RouterSimpleCuibit()),
+      
+
+      ],
+      child: const MainApp(),
+    );
+  }
+}
+
+
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+  final appRouter = context.watch<RouterSimpleCuibit>().state;
+
+    return MaterialApp.router(
+      title: 'MainApp',
+      debugShowCheckedModeBanner: false,
+      routerConfig: appRouter,
+    );
+  }
+}

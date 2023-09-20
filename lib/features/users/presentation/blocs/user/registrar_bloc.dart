@@ -15,6 +15,7 @@ class RegistrarBloc extends Bloc<RegistrarEvent, RegistrarState> {
     on<RegistrarEvent>((event, emit) async {
       if(event is OnRegister) {
         await registerUserUseCase.execute(event.user);
+        
       }
     });
   }

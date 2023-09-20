@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/routes/router.dart';
 import '../../../../products/presentation/pages/IniciarSesion.dart';
 import '../../../data/datasource/user_data_sorce.dart';
 import 'registrar.dart';
 import 'home.dart';
 
-
 void main() {
   runApp(Inicio());
 }
-
 
 class Inicio extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class Inicio extends StatelessWidget {
     return MaterialApp(
       home: Scene(),
       routes: {
-        '/otherScene': (context) => OtherScene(),//home user
+        '/otherScene': (context) => OtherScene(), //home user
         '/registrar': (context) => RegistrarScene(), // registrar
         '/restaurant': (context) => InicioTienda(), // product/iniciar sesion
       },
@@ -35,29 +35,6 @@ class _SceneState extends State<Scene> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String errorMessage = '';
-
-  void _login(BuildContext context) async {
-    final String email = emailController.text;
-    final String password = passwordController.text;
-    print("buenas tardesssss");
-    try {
-      // Llama al método logIn de UserApiDataSourceImp para realizar el inicio de sesión.
-      await UserApiDataSourceImp().logIn(email, password);
-
-      // Redirige a OtherScene si el inicio de sesión fue exitoso.
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OtherScene(),
-        ),
-      );
-    } catch (e) {
-      // Muestra el mensaje de error en caso de credenciales incorrectas.
-      setState(() {
-        errorMessage = 'Credenciales incorrectas, por favor intenta de nuevo.';
-      });
-    }
-  }
 
 
   void _register(BuildContext context) {
@@ -126,12 +103,16 @@ class _SceneState extends State<Scene> {
                 top: 433 * fem,
                 child: TextButton(
                   onPressed: () {
-                    _login(context); // Pasar el BuildContext como argumento
+                   
+                      context.read<RouterSimpleCuibit>().goHome();
+                    
+                    setState(() => {
+
+                  });
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                   ),
-
                   child: Container(
                     width: 254 * fem,
                     height: 35 * fem,
@@ -335,14 +316,14 @@ class _SceneState extends State<Scene> {
                 top: 567 * fem,
                 child: errorMessage.isNotEmpty
                     ? Text(
-                  errorMessage,
-                  style: GoogleFonts.inter(
-                    fontSize: 10 * ffem,
-                    fontWeight: FontWeight.w400,
-                    height: 1.2125 * ffem / fem,
-                    color: Colors.red, // Mostrar mensaje de error en rojo
-                  ),
-                )
+                        errorMessage,
+                        style: GoogleFonts.inter(
+                          fontSize: 10 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2125 * ffem / fem,
+                          color: Colors.red, // Mostrar mensaje de error en rojo
+                        ),
+                      )
                     : Container(),
               ),
             ],
