@@ -55,15 +55,12 @@ class UserApiDataSourceImp implements UserApiDataSource {
         body: UserModel.fromEntity(user).toJson(),
       );
 
-      // Muestra el status de la solicitud
       print('Status: ${response.statusCode}');
-
-      // Imprime la respuesta del servidor
       print(response.body);
-
-      // Procesa la respuesta
       if (response.statusCode == 200) {
         print('La respuesta tiene un código de estado 200.');
+
+
 
         // Redirecciona a otra página
         if (context == null) {

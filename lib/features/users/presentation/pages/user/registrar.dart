@@ -48,10 +48,8 @@ class _SceneState extends State<Scene> {
 
     // Llamada a createUser
     try {
+      print('aaa');
       await UserApiDataSourceImp().createUser(user);
-
-      // Ejemplo de navegación a la pantalla de inicio después del registro exitoso
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Inicio()));
 
     } catch (error) {
 

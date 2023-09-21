@@ -170,7 +170,7 @@ class _SceneState extends State<Scene> {
                 top: 545 * fem,
                 child: TextButton(
                   onPressed: () {
-                    _navigateToRestaurant(context);
+                    context.read<RouterSimpleCuibit>().goRegister();
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
