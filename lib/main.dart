@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/features/users/domain/usecase/user/RegisterUserUseCase.dart';
 import 'package:myapp/routes/router.dart';
 import 'package:myapp/usecase_config.dart';
+import 'package:myapp/usecase_login_user_config.dart';
 
 import 'features/users/domain/repository/UserRepository.dart';
 import 'features/users/domain/usecase/user/LoginUserUseCase.dart';
@@ -12,6 +13,7 @@ import 'features/users/presentation/blocs/user/registrar/registrar_bloc.dart';
 
 
 UsecaseConfig registerUserUseCase = UsecaseConfig();
+UsecaseLoginUserConfig registerUsecaseLoginUserConfig = UsecaseLoginUserConfig();
 
 void main(){
   runApp(const BlocsProviders());
@@ -30,6 +32,9 @@ class BlocsProviders extends StatelessWidget {
         BlocProvider<RegistrarBloc>(
           create: (BuildContext context) => RegistrarBloc(registerUserUseCase: registerUserUseCase.registerUserUseCase!)
         ), 
+         BlocProvider<IniciarSesionBloc>(
+          create: (BuildContext context) => IniciarSesionBloc(loginUseCase: registerUsecaseLoginUserConfig.loginUseCase!)
+        ),
         ],
       child: const MainApp(),
     );

@@ -10,7 +10,7 @@ part 'iniciar_sesion_state.dart';
 
 class IniciarSesionBloc extends Bloc<IniciarSesionEvent, IniciarSesionState> {
   final LoginUseCase loginUseCase;
-  IniciarSesionBloc(this.loginUseCase) : super(IniciarSesionInitial()) {
+  IniciarSesionBloc({required this.loginUseCase}) : super(IniciarSesionInitial()) {
     on<IniciarSesionEvent>((event, emit) async{
       if(event is onIniciar){
         await loginUseCase.execute(event.email,event.password);
