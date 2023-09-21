@@ -32,7 +32,7 @@ class BlocsProviders extends StatelessWidget {
           create: (BuildContext context) => RegistrarBloc(registerUserUseCase: registerUserUseCase.registerUserUseCase!)
         ), 
          BlocProvider<IniciarSesionBloc>(
-          create: (BuildContext context) => IniciarSesionBloc(loginUseCase: registerUsecaseLoginUserConfig.loginUseCase!)
+          create: (BuildContext context) => IniciarSesionBloc(context: context, loginUseCase: registerUsecaseLoginUserConfig.loginUseCase!)
         ),
         ],
       child: const MainApp(),

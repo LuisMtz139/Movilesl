@@ -5,10 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:myapp/features/users/presentation/blocs/user/iniciar-sesion/iniciar_sesion_bloc.dart';
 import 'package:myapp/routes/router.dart';
 
-void main() {
-  runApp(const Inicio());
-}
-
 class Inicio extends StatelessWidget {
   const Inicio({super.key});
 
@@ -87,16 +83,12 @@ class _SceneState extends State<Scene> {
                 left: 32 * fem,
                 top: 433 * fem,
                 child: TextButton(
-                  onPressed: () {
-
-                      context.read<IniciarSesionBloc>().loginUseCase.userRepository.postLogInUser(emailController.text, passwordController.text);
-
-                      //este cubo va dentro del cubo de arriba para validar 
+                  onPressed: () async {
+                    bool login = await context.read<IniciarSesionBloc>().login(emailController.text, passwordController.text);
+                    //context.read<IniciarSesionBloc>().loginUseCase.userRepository.postLogInUser(emailController.text, passwordController.text);
+                    if(login) {
                       context.read<RouterSimpleCuibit>().goHome();
-                    
-                    setState(() => {
-
-                  });
+                    }
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -319,6 +311,19 @@ class _SceneState extends State<Scene> {
                         ),
                       )
                     : Container(),
+              ),
+
+              BlocBuilder<IniciarSesionBloc, IniciarSesionState>(
+                builder: (context, state) {
+                  if(state is LoginError) {
+                    return Text(
+                      state.error,
+                      style: TextStyle(color: Colors.red),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }
               ),
             ],
           ),
