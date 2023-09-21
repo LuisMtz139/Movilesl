@@ -58,7 +58,6 @@ class RestaurantModelDataSourceImp implements RestaurantApiDataSource {
       String imageName = img.path.split('/').last;
 
       final response = await http.post(Uri.parse(url), body: {
-
         'name': restaurantModel.name,
         'email': restaurantModel.email,
         'password': restaurantModel.password,

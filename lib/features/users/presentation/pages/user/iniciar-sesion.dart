@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/features/users/presentation/blocs/user/iniciar-sesion/iniciar_sesion_bloc.dart';
 import 'package:myapp/routes/router.dart';
 
 void main() {
@@ -87,7 +88,10 @@ class _SceneState extends State<Scene> {
                 top: 433 * fem,
                 child: TextButton(
                   onPressed: () {
-                   
+
+                      context.read<IniciarSesionBloc>().loginUseCase.userRepository.postLogInUser(emailController.text, passwordController.text);
+
+                      //este cubo va dentro del cubo de arriba para validar 
                       context.read<RouterSimpleCuibit>().goHome();
                     
                     setState(() => {
