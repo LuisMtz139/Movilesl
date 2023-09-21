@@ -1,11 +1,16 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myapp/features/users/presentation/pages/restaurant/IniciarSesion.dart';
+import 'package:myapp/features/users/presentation/pages/restaurant/listaProducts.dart';
+import 'package:myapp/features/users/presentation/pages/restaurant/registrar-Yyu.dart';
+import 'package:myapp/features/users/presentation/pages/user/home.dart';
 import 'package:myapp/features/users/presentation/pages/user/iniciar-sesion.dart';
 import 'package:myapp/features/users/presentation/pages/user/registrar.dart';
 
-import '../features/users/data/datasource/user_data_sorce.dart';
-import '../features/users/presentation/pages/user/home.dart';
+
+
+
 
 final _publicRouter = GoRouter(routes: [
   GoRoute(
@@ -20,6 +25,18 @@ final _publicRouter = GoRouter(routes: [
     path: '/home',
     builder: (context, state) => OtherScene(),
   ),
+  GoRoute(
+    path: '/restaurant',
+    builder: (context, state) => InicioTienda(),
+  ),
+  GoRoute(
+    path: '/listar-producctos',
+    builder: (context, state) => ProductListView(),
+  ),
+  GoRoute(
+    path: '/registrar-restaurante',
+    builder: (context, state) => RestaurantRegistrationView(),
+  )
 ]);
 
 class RouterSimpleCuibit extends Cubit<GoRouter> {
@@ -38,6 +55,21 @@ class RouterSimpleCuibit extends Cubit<GoRouter> {
   void goRegister() {
     state.go(
       '/registrarte',
+    );
+  }
+   void goRestaurant() {
+    state.go(
+      '/restaurant',
+    );
+  }
+   void goRegisterRestaurant() {
+    state.go(
+      '/registrar-restaurante',
+    );
+  }
+   void goListaProductos() {
+    state.go(
+      '/listar-producctos',
     );
   }
 

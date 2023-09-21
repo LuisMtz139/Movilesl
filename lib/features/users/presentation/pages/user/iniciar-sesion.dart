@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/routes/router.dart';
-import '../../../../products/presentation/pages/IniciarSesion.dart';
+import '../restaurant/IniciarSesion.dart';
 import '../../../data/datasource/user_data_sorce.dart';
 import 'registrar.dart';
 import 'home.dart';
@@ -35,19 +35,6 @@ class _SceneState extends State<Scene> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String errorMessage = '';
-
-
-  void _register(BuildContext context) {
-    // Redirige a la vista de registro.
-    // Utilizamos Navigator.pushNamed porque ya definimos la ruta en MaterialApp.
-    Navigator.pushNamed(context, '/registrar');
-    // Si tienes una ruta para la vista de registro, puedes utilizarla así:
-    // Navigator.pushNamed(context, '/registro');
-  }
-
-  void _navigateToRestaurant(BuildContext context) {
-    Navigator.pushNamed(context, '/restaurant');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +85,7 @@ class _SceneState extends State<Scene> {
                   ),
                 ),
               ),
+
               Positioned(
                 left: 32 * fem,
                 top: 433 * fem,
@@ -134,12 +122,13 @@ class _SceneState extends State<Scene> {
                   ),
                 ),
               ),
+
               Positioned(
                 left: 32 * fem,
                 top: 489 * fem,
                 child: TextButton(
                   onPressed: () {
-                    _register(context);
+                    context.read<RouterSimpleCuibit>().goRegister();
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -165,12 +154,13 @@ class _SceneState extends State<Scene> {
                   ),
                 ),
               ),
+
               Positioned(
                 left: 32 * fem,
                 top: 545 * fem,
                 child: TextButton(
                   onPressed: () {
-                    context.read<RouterSimpleCuibit>().goRegister();
+                   context.read<RouterSimpleCuibit>().goRestaurant();
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -196,6 +186,10 @@ class _SceneState extends State<Scene> {
                   ),
                 ),
               ),
+
+
+
+
               Positioned(
                 left: 64 * fem,
                 top: 216 * fem,

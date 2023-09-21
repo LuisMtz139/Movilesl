@@ -12,6 +12,7 @@ class RestaurantModel extends  Restaurant{
     required String description,
     required String adress,
     required String url_image,
+   
 
   }):super(id,name,email,password,nameRestaurant,description,adress,url_image);
 

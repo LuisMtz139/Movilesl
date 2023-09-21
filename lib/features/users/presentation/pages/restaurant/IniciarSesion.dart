@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/routes/router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'listaProducts.dart';
-import 'package:myapp/features/products/presentation/pages/registrar-Yyu.dart';
+import 'package:myapp/features/users/presentation/pages/restaurant/registrar-Yyu.dart';
 
 void main() {
   runApp(InicioTienda());
@@ -205,7 +206,7 @@ class _SceneState extends State<Scene> {
                 top: 489 * fem,
                 child: TextButton(
                   onPressed: () {
-                    _register(context);
+                    context.read<RouterSimpleCuibit>().goRegisterRestaurant();
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,

@@ -26,45 +26,7 @@ class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView>
   TextEditingController _direccionController = TextEditingController();
   File? _selectedImage;
 
-  void _registerRestaurant() async {
-    if (_formKey.currentState!.validate()) {
-      final url = 'https://mobil-back-upbu-production.up.railway.app/register/restaurant';
-      final name = _nameController.text;
-      final email = _emailController.text;
-      final password = _passwordController.text;
-      final nameRestaurant = _nameRestaurantController.text;
-      final description = _descriptionController.text;
-      final direccion = _direccionController.text;
-
-      if (_selectedImage == null) {
-        // Handle error, image is required
-        return;
-      }
-
-      // Convert the image to bytes
-      List<int> imageBytes = await _selectedImage!.readAsBytes();
-      String imageName = _selectedImage!.path.split('/').last;
-
-      final response = await http.post(Uri.parse(url), body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'name_restaurant': nameRestaurant,
-        'description': description,
-        'direccion': direccion,
-        'image': http.MultipartFile.fromBytes('image', imageBytes, filename: imageName),
-      });
-
-      if (response.statusCode == 200) {
-        // Successful registration, handle the response here
-        print('Restaurant registered successfully');
-      } else {
-        // Error in registration, handle the error here
-        print('Error in restaurant registration');
-      }
-    }
-  }
-
+ 
   Future<void> _getImage() async {
     final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -157,7 +119,7 @@ class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView>
                   child: Image.file(_selectedImage!),
                 ),
               ElevatedButton(
-                onPressed: _registerRestaurant,
+                onPressed: () => {},
                 child: Text('Register Restaurant'),
               ),
             ],
