@@ -33,7 +33,7 @@ class _SceneState extends State<Scene> {
 
   String errorMessage = '';
 
-  void _confirm(BuildContext context) async {
+  User _confirm()  {
     String email = emailController.text;
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
@@ -48,15 +48,7 @@ class _SceneState extends State<Scene> {
       phoneNumber: phoneNumber,
     );
 
-    // Llamada a createUser
-    try {
-      print('aaa');
-      await UserApiDataSourceImp().createUser(user);
-
-    } catch (error) {
-
-      print('Error al crear el usuario: $error');
-    }
+    return user;
   }
 
   @override
@@ -108,7 +100,7 @@ class _SceneState extends State<Scene> {
                   SizedBox(height: 20 * ffem),
                   ElevatedButton(
                     onPressed: () {
-                       context.read<RegistrarBloc>().registerUserUseCase;
+                       context.read<RegistrarBloc>().registerUserUseCase.userRepository.postRegisterUser(_confirm());
                       // _confirm(context);
                     },
                     style: ElevatedButton.styleFrom(

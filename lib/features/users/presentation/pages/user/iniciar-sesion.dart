@@ -13,7 +13,7 @@ class Inicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scene(),
      
     );
@@ -21,6 +21,8 @@ class Inicio extends StatelessWidget {
 }
 
 class Scene extends StatefulWidget {
+  const Scene({super.key});
+
   @override
   _SceneState createState() => _SceneState();
 }

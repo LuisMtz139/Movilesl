@@ -13,11 +13,11 @@ class RegistrarBloc extends Bloc<RegistrarEvent, RegistrarState> {
   final RegisterUserUseCase registerUserUseCase;
 
   RegistrarBloc({required this.registerUserUseCase}) : super(RegistrarInitial()) {
-     print('miller reee mampo');
+    
     on<RegistrarEvent>((event, emit) async {
       if(event is OnRegister) {
         await registerUserUseCase.execute(event.user);
-        print('miller reee mampo');
+      
       }
     });
   }
