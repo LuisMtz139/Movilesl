@@ -9,14 +9,15 @@ part 'registrar_event.dart';
 part 'registrar_state.dart';
 
 class RegistrarBloc extends Bloc<RegistrarEvent, RegistrarState> {
+
   final RegisterUserUseCase registerUserUseCase;
 
   RegistrarBloc({required this.registerUserUseCase}) : super(RegistrarInitial()) {
-    print('ererer');
+     print('miller reee mampo');
     on<RegistrarEvent>((event, emit) async {
       if(event is OnRegister) {
         await registerUserUseCase.execute(event.user);
-        print('ppppp');
+        print('miller reee mampo');
       }
     });
   }

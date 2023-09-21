@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/features/users/presentation/blocs/user/registrar/registrar_bloc.dart';
 
 import '../../../data/datasource/user_data_sorce.dart';
 import '../../../domain/entities/User.dart';
@@ -106,7 +108,8 @@ class _SceneState extends State<Scene> {
                   SizedBox(height: 20 * ffem),
                   ElevatedButton(
                     onPressed: () {
-                      _confirm(context);
+                       context.read<RegistrarBloc>().registerUserUseCase;
+                      // _confirm(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:const Color(0xff2e2e2e),
