@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,6 +87,7 @@ class _SceneState extends State<Scene> {
                 child: TextButton(
                   onPressed: () async {
                     bool login = await context.read<IniciarSesionBloc>().login(emailController.text, passwordController.text);
+                    print( 'waiiiiiiiiiiiiiiiiiiiiiiiiaaaaaaaaaaaaaaaa $login');
                     //context.read<IniciarSesionBloc>().loginUseCase.userRepository.postLogInUser(emailController.text, passwordController.text);
                     if(login) {
                       context.read<RouterSimpleCuibit>().goHome();

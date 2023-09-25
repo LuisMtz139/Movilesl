@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/features/users/presentation/blocs/user/registrar/registrar_bloc.dart';
+import 'package:myapp/routes/router.dart';
 
 import '../../../data/datasource/user_data_sorce.dart';
 import '../../../domain/entities/User.dart';
@@ -96,11 +97,28 @@ class _SceneState extends State<Scene> {
                   SizedBox(height: 20 * ffem),
 
                   CustomTextField(controller: confirmPasswordController, hintText: 'Confirmar Contraseña'),
+                    BlocBuilder<RegistrarBloc, RegistrarState>(
+                builder: (context, state) {
+                  if(state is RegisterError) {
+                    return Text(
+                      state.error,
+                      style: TextStyle(color: Colors.red),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }
+              ),
 
                   SizedBox(height: 20 * ffem),
                   ElevatedButton(
-                    onPressed: () {
-                       context.read<RegistrarBloc>().registerUserUseCase.userRepository.postRegisterUser(_confirm());
+                    onPressed: () async {
+                       bool register = await context.read<RegistrarBloc>().resgister(_confirm());
+                       print('aquiiiiiiiiiiiiiiii aaaaaaaaaaaaaaaaaaa $register');
+                      if (register) {
+                        // ignore: use_build_context_synchronously
+                        context.read<RouterSimpleCuibit>().goInicio();
+                      }
                       // _confirm(context);
                     },
                     style: ElevatedButton.styleFrom(

@@ -29,7 +29,7 @@ class BlocsProviders extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => RouterSimpleCuibit()),
         BlocProvider<RegistrarBloc>(
-          create: (BuildContext context) => RegistrarBloc(registerUserUseCase: registerUserUseCase.registerUserUseCase!)
+          create: (BuildContext context) => RegistrarBloc(context: context,registerUserUseCase: registerUserUseCase.registerUserUseCase!)
         ), 
          BlocProvider<IniciarSesionBloc>(
           create: (BuildContext context) => IniciarSesionBloc(context: context, loginUseCase: registerUsecaseLoginUserConfig.loginUseCase!)

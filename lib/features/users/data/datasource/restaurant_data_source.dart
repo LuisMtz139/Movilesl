@@ -51,13 +51,15 @@ class RestaurantModelDataSourceImp implements RestaurantApiDataSource {
 
   @override
   Future<void> postRegisterRestaurant(RestaurantModel restaurantModel, File img) async {
-    
+
+    try {
       const url = 'https://mobil-back-upbu-production.up.railway.app/register/restaurant';
       // Convert the image to bytes
       List<int> imageBytes = await img.readAsBytes();
       String imageName = img.path.split('/').last;
-
-      final response = await http.post(Uri.parse(url), body: {
+      print(restaurantModel);
+      if (restaurantModel == null) {
+          final response = await http.post(Uri.parse(url), body: {
         'name': restaurantModel.name,
         'email': restaurantModel.email,
         'password': restaurantModel.password,
@@ -74,6 +76,16 @@ class RestaurantModelDataSourceImp implements RestaurantApiDataSource {
         // Error in registration, handle the error here
         // print('Error in restaurant registration');
       }
+      }else{
+         throw Exception('Error durante el inicio de sesión:');
+      }
+
+    
+    } catch (e) {
+       throw Exception('Error durante el inicio de sesión: $e');
+    }
+    
+      
     }
 
   }

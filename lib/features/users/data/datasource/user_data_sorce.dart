@@ -4,18 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
-
 import '../../domain/entities/User.dart';
 import '../../presentation/pages/user/home.dart';
 import '../../presentation/pages/user/iniciar-sesion.dart';
 import '../../presentation/pages/user/registrar.dart';
 import '../models/user_models.dart';
 
-abstract class UserApiDataSource {//cooregir el= nombre dependiendo el tipo de consumo
+abstract class UserApiDataSource {
+  //cooregir el= nombre dependiendo el tipo de consumo
   // https://jsonplaceholder.typicode.com/posts
-    Future<List<UserModel>> getUser();
-    Future<void> createUser(User user);
-    Future<void> logIn(String email, String password);
+  Future<List<UserModel>> getUser();
+  Future<void> createUser(User user);
+  Future<void> logIn(String email, String password);
 }
 
 class UserApiDataSourceImp implements UserApiDataSource {
@@ -33,25 +33,50 @@ class UserApiDataSourceImp implements UserApiDataSource {
     final String name = user.name;
     final String phoneNumber = user.phoneNumber;
 
-    print(email +' '+ password+' ' + confirmPassword+' ' + name+' ' +phoneNumber);
-
-
-    // Verificar si las contraseñas coinciden
-    if (password != confirmPassword) {
-      errorMessage = 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.';
+  
+    if (email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty ||
+        name.isEmpty ||
+        phoneNumber.isEmpty) {
+      errorMessage = 'Por favor, asegúrate de llenar todos los campos.';
       Fluttertoast.showToast(
         msg: errorMessage,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
       );
-      return;
+      throw Exception('Error durante el inicio de sesión:');
+    }
+
+// Verificar si las contraseñas coinciden
+    if (password != confirmPassword) {
+      errorMessage =
+          'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.';
+      Fluttertoast.showToast(
+        msg: errorMessage,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+      );
+      throw Exception('Error durante el inicio de sesión:');
+    }
+
+    // Verificar si las contraseñas coinciden
+    if (password != confirmPassword) {
+      errorMessage =
+          'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.';
+      Fluttertoast.showToast(
+        msg: errorMessage,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+      );
+      throw Exception('Error durante el inicio de sesión:');
     }
 
     try {
-
       // Realiza la solicitud POST
       var response = await http.post(
-        Uri.parse('https://mobil-back-upbu-production-160d.up.railway.app/register/user'),
+        Uri.parse(
+            'https://mobil-back-upbu-production-160d.up.railway.app/register/user'),
         body: UserModel.fromEntity(user).toJson(),
       );
 
@@ -59,8 +84,6 @@ class UserApiDataSourceImp implements UserApiDataSource {
       print(response.body);
       if (response.statusCode == 200) {
         print('La respuesta tiene un código de estado 200.');
-
-
 
         // Redirecciona a otra página
         if (context == null) {
@@ -79,14 +102,14 @@ class UserApiDataSourceImp implements UserApiDataSource {
     }
   }
 
-
   @override
   Future<String> logIn(String email, String password) async {
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     print('aaaaaaaa');
     try {
       var response = await http.post(
-        Uri.parse('https://mobil-back-upbu-production-160d.up.railway.app//login/user'),
+        Uri.parse(
+            'https://mobil-back-upbu-production-160d.up.railway.app//login/user'),
         headers: headers,
         body: {
           'email': email,
@@ -101,12 +124,13 @@ class UserApiDataSourceImp implements UserApiDataSource {
         print('Response: ${response.body}');
         // Guarda el token en una variable y retorna el token
         String token = response.body;
-        print('dfdfdf'+token);
+        print('dfdfdf' + token);
         return token;
       } else {
         print('Fallido inicio. Código de estado: ${response.statusCode}');
         print('Mensaje: ${response.body}');
-        throw Exception('Inicio de sesión fallido. Código de estado: ${response.statusCode}');
+        throw Exception(
+            'Inicio de sesión fallido. Código de estado: ${response.statusCode}');
       }
     } catch (error) {
       print('Error inicio de sesión: $error');
@@ -114,15 +138,9 @@ class UserApiDataSourceImp implements UserApiDataSource {
     }
   }
 
-
-
-
   @override
   Future<List<UserModel>> getUser() {
     // TODO: implement getUser
     throw UnimplementedError();
   }
 }
-
-
- 
