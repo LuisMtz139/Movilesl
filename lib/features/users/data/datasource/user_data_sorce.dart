@@ -33,7 +33,7 @@ class UserApiDataSourceImp implements UserApiDataSource {
     final String name = user.name;
     final String phoneNumber = user.phoneNumber;
 
-  
+    print('valores de user = ${user.email}');
     if (email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty ||
@@ -81,20 +81,9 @@ class UserApiDataSourceImp implements UserApiDataSource {
       );
 
       print('Status: ${response.statusCode}');
-      print(response.body);
+
       if (response.statusCode == 200) {
         print('La respuesta tiene un código de estado 200.');
-
-        // Redirecciona a otra página
-        if (context == null) {
-          print('PRUEBA 1234');
-          Navigator.push(
-            context!,
-            MaterialPageRoute(
-              builder: (context) => OtherScene(),
-            ),
-          );
-        }
       }
     } catch (e) {
       print(e);
@@ -105,35 +94,37 @@ class UserApiDataSourceImp implements UserApiDataSource {
   @override
   Future<String> logIn(String email, String password) async {
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    print('aaaaaaaa');
+
+    print('${email} + ${password}');
+
+    Map<String, String> body = {
+      'email': email,
+      'password': password,
+    };
+
     try {
       var response = await http.post(
-        Uri.parse(
-            'https://mobil-back-upbu-production-160d.up.railway.app//login/user'),
-        headers: headers,
-        body: {
-          'email': email,
-          'password': password,
-        },
-      );
-
+          Uri.parse(
+              'https://mobil-back-upbu-production-160d.up.railway.app/login/user'),
+          headers: headers,
+          body: body);
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('token', response.body);
-        print('Inicio de sesión exitoso');
-        print('Response: ${response.body}');
-        // Guarda el token en una variable y retorna el token
-        String token = response.body;
-        print('dfdfdf' + token);
+        String token =
+            response.body; // Guarda el token en una variable y retorna el token
         return token;
       } else {
-        print('Fallido inicio. Código de estado: ${response.statusCode}');
-        print('Mensaje: ${response.body}');
         throw Exception(
             'Inicio de sesión fallido. Código de estado: ${response.statusCode}');
       }
     } catch (error) {
       print('Error inicio de sesión: $error');
+      Fluttertoast.showToast(
+        msg: 'Error al iniciar sesión: $error',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+      );
       throw Exception('Error durante el inicio de sesión: $error');
     }
   }

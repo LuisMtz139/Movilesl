@@ -108,6 +108,8 @@ class _RestaurantRegistrationViewState extends State<RestaurantRegistrationView>
                   return null;
                 },
               ),
+
+              //boton para la imagen 
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _getImage,
